@@ -5,8 +5,8 @@ const NewTicketForm = () => {
   const [userName, setUserName] = useState('');
   const [description, setDescription] = useState('');
   const [type, setType] = useState('defect');
-  const [priority, setPriority] = useState('major');
-  const [component, setComponent] = useState('component1');
+  const [priority, setPriority] = useState('');
+  const [component, setComponent] = useState('');
   const [email, setEmail] = useState('');
   const [assign, setAssign] = useState('');
 
