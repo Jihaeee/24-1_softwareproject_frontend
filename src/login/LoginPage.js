@@ -1,50 +1,64 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./LoginPage.css";
 
 function LoginPage() {
-  // 상태 변수 정의: 아이디와 비밀번호
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [loginError, setLoginError] = useState("");
+  const navigate = useNavigate();
 
-  // 아이디 입력 핸들러
-  const handleUsernameChange = (event) => {
-    setUsername(event.target.value);
+  const validateEmail = (email) => {
+    const isValid = /\S+@\S+\.\S+/.test(email);
+    return isValid;
   };
 
-  // 비밀번호 입력 핸들러
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
-
-  // 로그인 버튼 클릭 핸들러
   const handleLogin = () => {
-    // 여기에 로그인 처리 로직을 추가하세요
-    console.log("아이디:", username);
-    console.log("비밀번호:", password);
+    if (!validateEmail(username)) {
+      setEmailError("유효한 이메일 형식이 아닙니다.");
+      return;
+    }
+
+    const storedEmail = localStorage.getItem("email");
+    const storedPassword = localStorage.getItem("password");
+
+    if (username === storedEmail && password === storedPassword) {
+      setLoginError("");
+      navigate("/home");
+    } else {
+      setLoginError("이메일 또는 비밀번호가 일치하지 않습니다.");
+    }
   };
 
   return (
-    <div>
-      <h2>로그인</h2>
+    <div className="login-container">
+      <h2>TRAC</h2>
+      <h4>계속하려면 로그인하세요.</h4>
       <form>
-        <div>
-          <label htmlFor="username">아이디:</label>
+        <div className="input-group">
+          <label htmlFor="username">이메일:</label>
           <input
             type="text"
             id="username"
+            className="input-field"
             value={username}
-            onChange={handleUsernameChange}
+            onChange={(e) => setUsername(e.target.value)}
           />
+          {emailError && <p className="error-message">{emailError}</p>}
         </div>
-        <div>
+        <div className="input-group">
           <label htmlFor="password">비밀번호:</label>
           <input
             type="password"
             id="password"
+            className="input-field"
             value={password}
-            onChange={handlePasswordChange}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button type="button" onClick={handleLogin}>
+        {loginError && <p className="error-message">{loginError}</p>}
+        <button type="button" className="login-button" onClick={handleLogin}>
           로그인
         </button>
       </form>
