@@ -43,17 +43,17 @@ const NewTicketForm = () => {
       <label htmlFor="type">Type:</label>
       <select id="type" value={type} onChange={(e) => setType(e.target.value)}>
         <option value="defect">defect</option>
-        {/* add more options here */}
+       //
       </select>
       <label htmlFor="priority">Priority:</label>
       <select id="priority" value={priority} onChange={(e) => setPriority(e.target.value)}>
         <option value="major">major</option>
-        {/* add more options here */}
+        //
       </select>
       <label htmlFor="component">Component:</label>
       <select id="component" value={component} onChange={(e) => setComponent(e.target.value)}>
         <option value="component1">component1</option>
-        {/* add more options here */}
+       //
       </select>
       <label htmlFor="email">Email:</label>
       <input
